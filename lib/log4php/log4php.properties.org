@@ -1,0 +1,22 @@
+--- 出力無し設定
+log4php.appender.dev_null = LoggerAppenderNull
+
+# --- 画面出力設定
+log4php.appender.stdout = LoggerAppenderEcho
+log4php.appender.stdout.layout = LoggerLayoutPattern
+log4php.appender.stdout.layout.conversionPattern = "%date{Y-m-d H:i:s.u} %-14logger %-8level [%-15X{ADDR} %X{HOST}] %message%newline"
+
+# --- ファイル出力設定(一定サイズでログを切替)
+#   http://logging.apache.org/log4php/docs/appenders/rolling-file.html
+log4php.appender.file = LoggerAppenderRollingFile
+# ■ log4php.appender.{name}.file は絶対パスで指定する必要あり
+#  参考： http://stackoverflow.com/questions/15666893/log4php-file-size-error
+log4php.appender.file.file = /home/users/0/watson.jp-desk/web/ida1/log/app.log
+log4php.appender.file.append = true
+log4php.appender.file.maxFileSize = 5MB
+log4php.appender.file.maxBackupIndex = 5
+log4php.appender.file.compress = false
+log4php.appender.file.layout = LoggerLayoutPattern
+log4php.appender.file.layout.conversionPattern = "%date{Y-m-d H:i:s.u} %-14logger %-8level [%-15X{ADDR} %X{HOST}] %message%newline"
+
+log4php.rootLogger = INFO, file

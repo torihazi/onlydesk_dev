@@ -1,0 +1,1444 @@
+@charset "UTF-8";
+/**　css のコメントアウトの書き方
+ *   共通するものについては、ファイル上部にまとめる
+ *   各ファイルごとの内容については各ファイルごとにまとめる
+ *   cssセレクタの隣には、練習のため設定理由を記載すること。
+ *   web空のコピペでもいいが、分かっていないのにただ張り付けるのはやめること
+ *   字下げは スペース4つ
+ *   セレクタと開始波括弧の間に 1つスペースを入れること。
+ *   終了波括弧については、改行すること
+ *   説明コメントとセレクタの間は必ず1行開けること
+ */
+
+
+/**
+ * PC、スマホ共通スタイル
+ */
+
+html {
+    font-size: 10px; /* ブラウザのデフォルトフォントサイズ 16px に対して100% */
+}
+
+body {
+    font-family: "Source Sans Pro", "Hiragino Kaku Gothic ProN", Meiryo, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none; /* 文字列の装飾ができる */
+    color: black; /* 要素内のテキストの色を設定 */
+    cursor: pointer; /*マウスポインターが要素の上にいるときのカーソル表示を設定 */
+}
+
+img {
+    max-width: 100%; /*要素の最大幅を 親要素の 100%にする == 親要素の横幅を絶対超えない */
+}
+
+ul {
+    list-style: none;
+}
+
+/**
+ *  PC用のスタイル 
+ */
+
+body {
+    width: 80%; /* botyの横幅をhtmlの90%にする */
+    max-width: 1080px; /* bodyの横幅の最大値を1080pxに固定 */
+/*    min-width: 960px; /* bodyの横幅の最小値を960pxに固定 */
+    margin: 0 auto;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    color: #5a5f64;
+}
+
+/* HEADER(logofont aster)
+-----------------------------------------------*/
+header {
+    width: 100%;
+    border-bottom: solid 1px #000; /*borderボックス下側に 幅 1px の黒線を設定 */
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+
+    /* 親の body要素に追随する*/
+    position: sticky;
+    top: 0;
+    align-items: center;
+    z-index: 5;
+}
+
+
+.logo {
+/*    font-family: MATH;*/
+    font-size: 2rem;
+}
+
+.header_menu_container {
+    display: flex;
+    align-items: center;
+}
+
+/* 検索フォーム */
+
+.search_form_container.desktop {
+    display: block;
+}
+
+.search_form_container.mobile {
+    display: none;
+}
+
+.search_form_box {
+    position: relative;
+    display: flex;
+    border: 1px solid #cfcabf;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    overflow: hidden;
+}
+
+.search_form {
+    padding: 0.5rem;
+}
+
+.search_button {
+    padding: 0.5rem;
+    background: #c0c0c0;
+}
+
+@media screen and (max-width: 450px) {
+
+    .search_form_container.desktop {
+        display: none;
+    }
+    
+    .search_form_container.mobile {
+        display: block;
+    }
+
+    .search_form_box {
+        font-size: 1rem;
+    }
+
+}
+
+
+
+
+/**
+ *  a リンクに下線を引くアニメーションを設定
+ */ 
+
+.line_animation {
+    background-image: linear-gradient(90deg, #000000, #000000); 
+    /* background-image 要素背景に画像を設定 */
+    /* linear-gradient cssの関数、image(画像)型を生成、(グラデーションの向きを決める角度、開始の色、終了の色を引数にする) */
+    /* 角度の初期値は 0deg で上向き、時計回りでdegが大きくなる。*/
+    background-repeat: no-repeat; /* 背景画像をどのように繰り返すか */
+    background-position: left bottom; /* 背景画像の初期位置を左下に指定 */
+    background-size: 0 1px; /* 背景画像の横幅を0、縦幅を1pxに */
+}
+
+.opacity_animation,
+.line_animation {
+    transition: all 0.5s;
+}
+
+.line_animation:hover { /* :hoverはマウスのポインタをリンクに重ねた状態 */
+    background-size: 100% 1px; /* 背景画像の寸法を 横幅 100% 高さ1pxに設定 */
+}
+
+.opacity_animation:hover{ /* :hoverはマウスポインタのリンクに重ねた状態 */
+    opacity: 0.5; /* 要素の不透明度を設定 0 が透明*/
+}
+
+
+
+/* ハンバーガーメニュー */
+.openbutton {
+    position: relative;
+    cursor: pointer;
+    width: 5rem;
+    height: 5rem;
+    z-index: 20;
+}
+
+.openbutton span{
+    display: inline-block;
+    transition: all 0.4s;
+    position: absolute;
+    width: 50%;
+    height: 0.3rem;
+    border-radius: 2px;
+    left: 1.25rem;
+    background: #000000;
+}
+
+.openbutton span:nth-of-type(1) {
+    top: 1.2rem;
+}
+
+.openbutton span:nth-of-type(2) {
+    top: 2rem;
+}
+
+.openbutton span:nth-of-type(3) {
+    top: 2.8rem;
+}
+
+.openbutton span:nth-of-type(3)::after {
+    content: "Menu";
+    position: absolute;
+    top: 0.5rem;
+    left: -0.2rem;
+    color: #000000;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+/* open クラスが付与されると回転して ×になる */
+.openbutton.open span:nth-of-type(1) {
+    top: 1.5rem;
+    left: 1.2rem;
+    transform: translateY(6px) rotate(-45deg);
+    width: 50%;
+}
+
+.openbutton.open span:nth-of-type(2){
+    opacity: 0;
+}
+
+.openbutton.open span:nth-of-type(3) {
+    top: 2.7rem;
+    left: 1.2rem;
+    transform: translateY(-6px) rotate(45deg);
+    width: 50%;
+}
+
+.openbutton.open span:nth-of-type(3)::after {
+    content: "Close";
+    top: 0.7rem;
+    left: 1rem;
+    transform: translateY(0) rotate(-45deg);
+}
+
+
+/* openbutton に openクラスが付与されると起動 */
+.g_nav {
+    position: absolute;
+    z-index: 10;
+    top: 6rem;
+    right: 0;
+    width: 11.5rem;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.g_nav.panelactive {
+    opacity: 1;
+}
+
+.g_nav_wrapper {
+    position: relative;
+    display: block;
+}
+
+.g_nav_list {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #cfcabf;
+    border-radius: 4px;
+    box-shadow: 0.1rem 0.2rem 0.6rem 0 ;
+    background-color: #ffffff;
+}
+
+.g_nav_list.panelactive {
+    display: flex;
+}
+
+.nav_list {
+    display: block;
+}
+
+.nav_list > li {
+    font-size: 1.3rem;
+    font-size: 600;
+    margin: 1rem;
+    user-select: none;
+}
+
+@media screen and (max-width: 450px) {
+    .g_nav_list {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 60%;
+        height: 100%;
+        padding-top: 6rem;
+    }
+}
+
+/*footer
+-----------------------------------------------*/
+#footer {
+    width: 100%; /* 要素横幅の広さを親要素の90%に設定 */
+    border-top: solid 1px #000; /* ボーダーボックス上部に幅1px黒色の実線を引く */
+}
+
+#footer > div {
+    text-align: center; /* 要素内の文字列を要素の左右中央に配置する */
+}
+
+
+/* main
+-----------------------------------------------*/
+main {
+    width: 100%;
+    /*flex: 1; /* bodyに設定したflexコンテナにおいて headerとfooterが使わなかった余白をmainに割り当てる
+/*    height: 100%;  要素の高さを 親要素の高さの100%に(=同じに)設定 */
+    /* 親要素の取得は var target=document.querySelector('main') */
+    /* taget.parentNode で取得可能 */
+    /* heightを %で指定する場合はそうそうない。親にheightが指定されていないと %は指定できない */
+    /* heightを %で指定する場合は 親要素にauto かinherit以外の数値が設定されていないと 効果ないので気を付けること */
+    position: relative;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/*ページタイトル
+-----------------------------------------------*/
+.page_title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
+
+
+/*errors.php
+-----------------------------------------------*/
+.error{
+    color: #f21504;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+
+/*signin.php
+-----------------------------------------------*/
+.signin_container {
+    min-width: 300px;
+    position: absolute; /* relativeboxの中における位置を絶対位置に変更 */
+    top: 50%; /* もともとある位置の上から 40%の距離 */
+    left: 50%; /* もともとある位置の左から 40%の距離 */
+    transform: translate(-50%, -50%); /*上3行だけだと、要素の左上の頂点が中央になる。そのためコンテンツ自体がずれてしまう。 */
+    /* それを解消するために transformプロパティを使用する。translateはcssの関数で要素を水平方向や垂直方向に移動することができる */
+}
+
+.signin_title_container {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+}
+
+.signin_form {
+    border: 1px solid #8c8477; /* ボーダーボックス上に1pxの黒実線を引く */
+    border-radius: 3px; /* 角の丸みを 半径 3pxの円に設定 */
+    padding: 10px; /* フォームの枠線から10px分余白を作る */
+    margin-bottom: 10px; /*フォームの下側マージンに10pxの余白を設定 */ 
+}
+
+.signin_form > input[type="text"], /* signin_for直下でinput要素のtype属性がtextのものに対して　*/
+.signin_form > input[type="password"] { /* signin_form直下でinput要素のtype属性がpasswordのものに対して　*/
+    width: 100%; 
+    font-size: 14px;
+}
+
+.signin_link_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.signin_button {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+    width: 80%; /* 要素の横幅を 親要素の80%に設定 */
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    padding: 1rem; /* 要素-ボーダー間余白を 10pxに設定 */
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    margin: 0 auto 1rem auto; /* ボーダー外とマージンボックス感の余白を 10pxに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.signin_button:hover {
+    background-color: #d3d3d3; /* カーソルを重ねると色が変化する */
+}
+
+/* signup.php
+-----------------------------------------------*/
+.signup_container {
+    min-width: 300px;
+    position: absolute; /* relativeboxの中における位置を絶対位置に変更 */
+    top: 50%; /* もともとある位置の上から 40%の距離 */
+    left: 50%; /* もともとある位置の左から 40%の距離 */
+    transform: translate(-50%, -50%); /*上3行だけだと、要素の左上の頂点が中央になる。そのためコンテンツ自体がずれてしまう。 */
+    /* それを解消するために transformプロパティを使用する。translateはcssの関数で要素を水平方向や垂直方向に移動することができる */
+}
+
+.signup_title_container {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+}
+
+.signup_form {
+    border: 1px solid #8c8477; /* ボーダーボックス上に1pxの黒実線を引く */
+    border-radius: 3px; /* 角の丸みを 半径 3pxの円に設定 */
+    padding: 1rem; /* フォームの枠線から10px分余白を作る */
+    margin-bottom: 1rem; /*フォームの下側マージンに10pxの余白を設定 */ 
+}
+
+.signup_form > input[type="text"], /* signin_for直下でinput要素のtype属性がtextのものに対して　*/
+.signup_form > input[type="password"] { /* signin_form直下でinput要素のtype属性がpasswordのものに対して　*/
+    width: 100%; 
+    font-size: 1.4rem;
+}
+
+.signup_link_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.signup_button {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+    width: 80%; /* 要素の横幅を 親要素の80%に設定 */
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    padding: 1rem; /* 要素-ボーダー間余白を 10pxに設定 */
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    margin: 0 auto 1rem auto; /* ボーダー外とマージンボックス感の余白を 10pxに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.signup_button:hover {
+    background-color: #d3d3d3; /* カーソルを重ねると色が変化する */
+}
+
+
+/* requestForm.php
+-----------------------------------------------*/
+.request_container {
+    min-width: 300px;
+    position: absolute; /* relativeboxの中における位置を絶対位置に変更 */
+    top: 50%; /* もともとある位置の上から 40%の距離 */
+    left: 50%; /* もともとある位置の左から 40%の距離 */
+    transform: translate(-50%, -50%); /*上3行だけだと、要素の左上の頂点が中央になる。そのためコンテンツ自体がずれてしまう。 */
+    /* それを解消するために transformプロパティを使用する。translateはcssの関数で要素を水平方向や垂直方向に移動することができる */
+}
+
+.request_title_container {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+}
+
+.request_form {
+    border: 1px solid #8c8477; /* ボーダーボックス上に1pxの黒実線を引く */
+    border-radius: 3px; /* 角の丸みを 半径 3pxの円に設定 */
+    padding: 10px; /* フォームの枠線から10px分余白を作る */
+    margin-bottom: 10px; /*フォームの下側マージンに10pxの余白を設定 */ 
+}
+
+.request_form > input[type="text"], /* signin_for直下でinput要素のtype属性がtextのものに対して　*/
+.request_form > input[type="password"] { /* signin_form直下でinput要素のtype属性がpasswordのものに対して　*/
+    width: 100%; 
+    font-size: 14px;
+}
+
+.request_link_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.request_button {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+    width: 80%; /* 要素の横幅を 親要素の80%に設定 */
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    padding: 10px; /* 要素-ボーダー間余白を 10pxに設定 */
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    margin: 0 auto 10px auto; /* ボーダー外とマージンボックス感の余白を 10pxに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.request_button:hover {
+    background-color: #d3d3d3; /* カーソルを重ねると色が変化する */
+}
+
+
+/* resetForm.php
+-----------------------------------------------*/
+.reset_container {
+    min-width: 300px;
+    position: absolute; /* relativeboxの中における位置を絶対位置に変更 */
+    top: 50%; /* もともとある位置の上から 40%の距離 */
+    left: 50%; /* もともとある位置の左から 40%の距離 */
+    transform: translate(-50%, -50%); /*上3行だけだと、要素の左上の頂点が中央になる。そのためコンテンツ自体がずれてしまう。 */
+    /* それを解消するために transformプロパティを使用する。translateはcssの関数で要素を水平方向や垂直方向に移動することができる */
+}
+
+.reset_title_container {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+}
+
+.reset_form {
+    border: 1px solid #8c8477; /* ボーダーボックス上に1pxの黒実線を引く */
+    border-radius: 3px; /* 角の丸みを 半径 3pxの円に設定 */
+    padding: 10px; /* フォームの枠線から10px分余白を作る */
+    margin-bottom: 10px; /*フォームの下側マージンに10pxの余白を設定 */ 
+}
+
+.reset_form > input[type="password"] { /* signin_form直下でinput要素のtype属性がpasswordのものに対して　*/
+    width: 100%; 
+    font-size: 14px;
+}
+
+.reset_button {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+    width: 80%; /* 要素の横幅を 親要素の80%に設定 */
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    padding: 10px; /* 要素-ボーダー間余白を 10pxに設定 */
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    margin: 0 auto 10px auto; /* ボーダー外とマージンボックス感の余白を 10pxに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.reset_button:hover {
+    background-color: #d3d3d3; /* カーソルを重ねると色が変化する */
+}
+
+
+/* qaForm.php
+-----------------------------------------------*/
+.qa_container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.about_astrisk {
+    font-size: 12px;
+    color: red;
+}
+
+.qa_form {
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.form_required:after{
+    color: red;
+    content: "*";
+}
+
+.qa_form > input,
+.qa_select_wrapper > select,
+.qa_form > textarea,
+.qa_form > .qa_check {
+    border: 1px solid #8c8477;
+    border-radius: 3px;
+    padding: 1rem;
+    width: 100%;
+    font-size: 1.4rem;
+}
+
+.qa_explain {
+    font-size: 12px; /* 文字サイズを 12pxに設定 */
+    color: #8c8477; /* 文字カラーをグレーぽい色に変更 */
+}
+
+.qa_select_wrapper {
+    position: relative; /* select用の 矢印デザインを作るためにrelative設定 */
+}
+
+.qa_select_border_design::after {
+    content: ""; /* 空文字設定 */
+    position: absolute; /* 親要素基準に位置を決定 */
+    top: 14px; /* 上から 14px */
+    right: 20px; /* 右から20px */
+    width: 10px; /* 横幅10px */
+    height: 10px; /* 高さ 10px */
+    border-top: 2px solid #8c8477;
+    border-right: 2px solid #8c8477;
+    transform: rotate(135deg);
+}
+
+.qa_textarea{
+    height: 200px;
+    min-height: 150px;
+    resize: none;
+}
+
+.qa_check_content {
+    height: 200px;
+    min-height: 150px;
+}
+
+.qa_button {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+    width: 100%; /* 要素の横幅を 親要素の80%に設定 */
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    padding: 10px; /* 要素-ボーダー間余白を 10pxに設定 */
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.qa_button:hover {
+    background-color: #d3d3d3; /* カーソルを重ねると色が変化する */
+}
+
+
+
+.qa_button_box {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.qa_fin_button,
+.qa_check_button {
+    text-align: center;
+    width: 33%;
+    padding: 10px;
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.qa_fin_button:hover,
+.qa_check_button:hover {
+    background-color: #d3d3d3;
+}
+
+
+/* pwChangeForm.php 
+-------------------------------------------------*/
+.pw_change_form_container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.pw_form {
+    margin-bottom: 5rem;
+    width: 70%;
+}
+
+.pw_form > input {
+    border: 1px solid #8c8477;
+    border-radius: 3px;
+    padding: 1rem;
+    width: 70%;
+    font-size: 1.4rem;
+}
+
+.pw_button {
+    text-align: center; /* テキストなどのインライン要素を中央寄せ */
+    width: 50%; /* 要素の横幅を 親要素の80%に設定 */
+    border: 1px solid #8c8477; /* ボーダーに 1px 黒実線を設定 */
+    border-radius: 3px; /* 角の丸みを 3pxに設定 */
+    padding: 1rem; /* 要素-ボーダー間余白を 10pxに設定 */
+    font-size: 1.5rem;
+    transition: 0.5s; /* 移り変わりアニメーションに要する時間を 0.5sに設定 */
+    cursor: pointer; /* マウスをあてると カーソルが変わる */
+}
+
+.pw_button:hover {
+    background-color: #d3d3d3; /* カーソルを重ねると色が変化する */
+}
+
+
+@media screen and (max-width: 450px) {
+    .pw_form {
+        width: 100%;
+    }
+
+    .pw_form > input {
+        width: 90%;
+    }
+}
+
+/* pagenation
+-----------------------------------------------*/
+.pagenation {
+   position: relative;
+   overflow: hidden; /* pagenationブロックからはみ出た要素は隠す */
+   margin: 1rem;
+}
+.pagenation > ul {
+    position:relative;
+    left:50%;
+    float:left;
+    list-style: none;
+}
+.pagenation > ul > li {
+    position:relative;
+    left:-50%;
+    float:left;
+}
+.pagenation > ul > li > a {
+    margin: 0 3px;
+    padding:3px 7px;
+    display: block;
+    color: #000000; /* 文字色 */
+    background-image: linear-gradient(90deg, #000000, #000000); /* 線の色 */
+    background-repeat: no-repeat;
+    background-position: left bottom; /* 線の起点を左・下に設定 */
+    background-size: 0 1px; /* 線の横幅を0、縦幅を1pxに */
+    transition: background-size 0.6s; /* 線を伸ばすアニメーション実行時間を指定 */
+}
+
+.pagenation > ul > li > .now_page > a,
+.pagenation > ul > li > a:hover{
+    background-size: 100% 1px; /* 線の横幅を100%にする */
+}
+
+/*/mypage/profile
+------------------------------------------------*/
+
+.profile_info_box
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile_info_subbox {
+    margin-bottom: 1rem;
+}
+
+.profile_meta_info_box {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    font-size: 1.2rem;
+}
+
+
+.profile_meta_info:nth-of-type(1) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.profile_meta_info:nth-of-type(2) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.profile_meta_info:nth-of-type(3) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.profile_meta_info:nth-of-type(4) {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+
+.profile_meta_info:nth-of-type(5) {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+}
+
+
+.profile_meta_info {
+    text-align: center;
+}
+
+
+.profile_img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+}
+
+
+.follow_label {
+    text-align: center;
+    border: .1rem solid #8c8477;
+    border-radius: .3rem;
+    cursor: pointer;
+    display: block;
+    font-size: 1rem;
+    width: 10rem;
+    padding: 1.2rem;
+    transition: background 0.5s ease;
+}
+
+.unfollow {
+    background: #fff;
+}
+
+
+.follow {
+    background: #000000;
+    color: #fff;
+}
+
+.unfollow:hover,
+.follow:hover {
+    background: #d3d3d3;
+}
+
+.follow_input {
+    display: none;
+}
+
+
+
+/*/post/list, /mypage/profile 共通
+-------------------------------------------------*/
+.articles_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+    gap: 2rem;
+}
+
+.article_box {
+    margin: 1rem;
+}
+
+.user_article_image {
+    transition: all 0.3s;
+}
+
+.user_article_image:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+.article_img{
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.user_article_title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.5rem;
+}
+
+.user_profile_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_profile_box,
+.user_good_box {
+    display: flex;
+    align-items: center;
+}
+
+.profile_icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+}
+
+.good_count {
+    font-size: 2rem;
+}
+
+.like-btn {
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.active{
+    color: #f60909;
+}
+
+
+/*/post/show
+--------------------------------------*/
+.article_container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: auto 30%;
+}
+
+
+.main_article_image {
+}
+
+.main_image {
+    width: 70%;
+}
+
+.user_meta_info_container {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.user_name {
+    align-items: center;
+}
+
+.article_info_container {
+  position: relative;
+/*  display: inline-block;*/
+  margin: 1.5em 0;
+  padding: 0.7rem 1rem;
+  color: #555;
+  font-size: 1rem;
+  background: #f6f5f4;
+}
+
+.article_info_container:before {
+  content: "";
+  position: absolute;
+  top: -29px;
+  left: 10%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-bottom: 15px solid #f6f5f4;
+}
+
+.article_info_container > span {
+    font-weight: 700;
+}
+
+
+@media screen and (max-width: 450px) {
+    .article_container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .side_flame {
+        grid-row: 3 / 4;
+    }
+
+    .content_container {
+        grid-row: 2 / 3;
+    }
+
+    .main_image {
+        width: 100%;
+    }
+}
+
+
+
+
+
+/* quitForm
+------------------------------------------*/
+
+.quit_form_container,
+.quit_button_container{
+    width: 70%;
+    margin-bottom: 5rem;
+}
+
+.quit_button_container {
+    display: flex;
+}
+
+.quit_textarea {
+    border: 1px solid #8c8477;
+    border-radius: 3px;
+    width: 100%;
+    resize: none;
+}
+
+.quit_button {
+    background-color: #ffffff; /* 背景色 */
+    padding: 0.5rem; /* パディング */
+    width: 50%;
+    text-align: center; /* 文字のアライメント */
+    text-decoration: none; /* 文字装飾 */
+    display: inline-block; /* ボタンの表示方法 */
+    font-size: 1.5rem; /* フォントサイズ */
+    cursor: pointer; /* カーソル */
+    border: 1px solid #8c8477;
+    border-radius: 5px; /* 50pxの角丸 */
+    transition: all 0.5s 0s ease;
+}
+
+.quit_button.quit,
+.quit_button.cancel{
+    width: 25%;
+}
+
+.quit_button.quit{
+    margin-right: 2rem;
+}
+
+.quit_button:hover {
+    background-color: #eae7e2;
+}
+
+
+/*フォーム 共通(投稿、投稿更新、プロフィール更新)
+-------------------------------------------*/
+
+/* フォームレイアウト */
+/* 投稿、投稿更新 */
+.form_container.post{ 
+    display: grid; 
+    grid-template-columns: 33% 67%;
+    grid-template-rows: 30rem 6rem 18rem 1fr;
+    gap: 2rem;
+}
+
+/* プロフィール更新 */
+.form_container.profile{
+    display: grid; 
+    grid-template-columns: 33% 67%;
+    grid-template-rows: 20rem 6rem 6rem 6rem 6rem;
+    gap: 2rem;
+}
+
+/* フォーム部品(画像以外) 共通*/
+.form_input_container {
+    position: relative;
+}
+
+.form_title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.form_info_required {
+    font-size: 1.7rem;
+    color: #ff4500;
+}
+
+.form_info_notice {
+    font-size: 1.5rem;
+    color: #b5b5b5;
+}
+
+.title_form,
+.name_form,
+.email_form,
+.select_sex_type,
+.select_age_type{
+    font-size: 1.5rem;
+    width: 48rem;
+    border: 1px solid #8c8477;
+    border-radius: 3px;
+    padding: 1rem;
+}
+
+.detail_form {
+    font-size: 1.5rem;
+    width: 48rem;
+    line-height: 1.5;
+    height: 9em;
+    border: 1px solid #8c8477;
+    border-radius: 3px;
+    padding: 1rem;
+    resize: none;
+}
+
+.is_hidden {
+    visibility: hidden;
+}
+
+
+/* フォーム部品(画像) */
+/* 投稿、投稿更新 */
+.form_input_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.form_input_wrapper.post {
+    width: 32rem;
+    height: 24rem;
+}
+
+.form_input_wrapper.profile{
+    width: 18rem;
+    height: 18rem;
+}
+
+.form_input_box {
+    background-color: #f6f5f4;
+    border: 2px dashed #cfcabf;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+
+    /* 初期表示 */
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.form_input_box.post{
+    width: 32rem;
+    height: 24rem;
+}
+
+.form_input_box.profile{
+    width: 18rem;
+    height: 18rem;
+}
+
+.form_input_box.is_open {
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+}
+
+.label_input {
+    position: absolute; /* 親要素基準に上下中央寄せする */
+    top: 50%; /* お決まり 親要素border上から 50% */
+    left: 50%; /* お決まり 親要素border左から 50% */
+    transform: translate(-50%,-50%); /* 対象要素borderの左上原点が中央になるのを防ぐ、これで要素の中心が中心に移動 */
+    font-size: 1.5rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #8c8477;
+    border-radius: 5px;
+    width: 15rem;
+    transition: all 0.5s 0s ease;
+    cursor: pointer;
+}
+
+.label_input:hover {
+    background-color: #eae7e2;
+}
+
+
+/* トリイング後の画像表示 */
+.cropped_image_container {
+    position: relative;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+
+    /* 初期表示について */
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.cropped_image_container.post {
+    width: 32rem;
+    height: 24rem;
+}
+
+.cropped_image_container.profile {
+    width: 18rem;
+    height: 18rem;
+
+}
+
+.cropped_icon {
+    border-radius: 50%;
+}
+
+/* トリミング後の切替 */
+.cropped_image_container.is_open {
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+}
+
+.cropped_image {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+/* 現在画像の情報 */
+.now_image_container{
+    position: relative;
+    box-sizing: border-box;
+
+    /* 初期表示 */
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.now_image_container.post {
+    width: 32rem;
+    height: 24rem;
+}
+
+.now_image_container.profile {
+    width: 18rem;
+    height: 18rem;
+}
+
+.now_image_container.is_open {
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+}
+
+.now_image {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.now_image.profile {
+    border-radius: 50%;
+}
+
+
+/* 画像削除ボタン */
+.remove_image_button {
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 2.4rem;
+    background-color: #f6f5f4;
+
+    /* アニメーション */
+    transition: all 0.5s 0s ease;
+}
+
+.remove_image_button.post{
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+}
+
+.remove_image_button.profile {
+    position: absolute;
+    top: 0;
+    left: 14rem;
+}
+
+.remove_image_button:hover {
+    background-color: grey;
+}
+
+
+
+/* 投稿する, 更新する ボタン系 */
+.submit_button_container.post {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+}
+
+.submit_button_container.profile {
+    grid-column: 2 / 3;
+    grid-row:  6 / 7;
+}
+
+.submit_button_container{
+    font-size: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #8c8477;
+    border-radius: 5px;
+    width: 32rem;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.5s 0s ease;
+}
+
+.submit_button_label {
+    display: inline-block;
+    width: 100%;
+}
+
+.submit_button_container,
+.submit_button_container > * {
+    cursor: pointer;
+}
+
+.submit_button_container:hover {
+    background-color: #eae7e2;
+}
+
+
+
+/*モーダルウィンドウ
+------------------------------------------------*/
+.modal_layer {
+    position: fixed; /* fixedの基準は 表示画面 */
+    top: 0; /* 領域の原点を 表示画面 左隅に */
+    left: 0; /* 領域の原点を 表示画面 左隅に */
+    width: 100%; /* 領域を 画面横幅一杯に */
+    height: 100%; /* 両機を 画面縦幅一杯に */
+    background: rgba(0, 0, 0, .2);
+
+    /* 基本非表示設定 */
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+
+    /* ふわりと表示 */
+     transition: opacity 0.4s linear, visibility 0.4s linear, z-index 0.4s linear;
+}
+
+.modal_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    /* 基本非表示設定 */
+    opacity: 0;
+    visibility: hidden;
+
+    /* ふわりと表示 */
+     transition: visibility 0.4s linear, opacity 0.4s linear;
+}
+
+.modal_content_container {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #ffffff;
+    transform: translate(-50%, -50%);
+    width: 56rem;
+    height: 42rem;
+}
+
+/* モーダルウィンドウ 可視化の際 */
+.modal_layer.is_open {
+    z-index: 999;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal_layer.is_open .modal_container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal_title {
+    flex: 0.2;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.cropping_image_container {
+    flex: 0.6;
+}
+
+.cropping_image{
+    width: 48rem;
+    height: 36rem;
+}
+
+.modal_button_container {
+    flex: 0.2;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.crop_fin_button,
+.crop_cancel_button {
+    width: 25%;
+    border: 1px solid #8c8477;
+    border-radius: 5px;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.5s 0s ease;
+}
+
+.crop_fin_button:hover,
+.crop_cancel_button:hover {
+    background-color: #eae7e2;
+}
+
+/* cropper.cssの部分 */
+.cropper-view-box {
+    outline: 3px dashed #fff;
+    outline-color: #fff;
+}
+
+.cropper-line,
+.cropper-point {
+    background-color: #fff;
+}
+
+.cropper-view-box.profile,
+.cropper-face.profile {
+  border-radius: 50%;
+}
+
+
+/* レスポンシブ 投稿画面 */
+@media screen and (max-width: 450px) {
+
+    .form_container.profile,
+    .form_container.post { 
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .form_input_container.profile.first {
+        height: 20rem;
+    }
+
+    .form_input_container.post.first {
+        width: 32rem;
+        height: 24rem;
+    }
+
+
+    .form_input_container{
+        width: 100%;
+    }
+
+    .title_form,
+    .name_form,
+    .email_form,
+    .select_sex_type,
+    .select_age_type{
+        font-size: 1.5rem;
+        width: 90%;
+        border: 1px solid #8c8477;
+        border-radius: 3px;
+        padding: 1rem;
+    }
+    
+    .detail_form {
+        font-size: 1.5rem;
+        width: 90%;
+        line-height: 1.5;
+        height: 9em;
+        border: 1px solid #8c8477;
+        border-radius: 3px;
+        padding: 1rem;
+        resize: none;
+    }
+
+    /* モーダルコンテナー*/
+    .modal_content_container {
+        width: 32rem;
+        height: 42rem;
+    }
+
+    .cropped_image {
+        width: 28rem;
+        height: 21rem;
+    }
+
+
+}
