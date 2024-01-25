@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     setTimeout( function () {
-        window.location.href = "https://ida-1.onlydesk.jp/index_dev.php/login/signin";
+        window.location.href = "https://ida-1.onlydesk.jp/index.php/login/signin";
     }, 3*1000);
 </script>
 
