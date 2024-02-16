@@ -269,7 +269,7 @@ class MypageController extends Controller
     {
         if (! $this->request->isPost()) {
 
-            return $this->render404();
+            return $this->forward404();
 
         }
 
@@ -390,6 +390,7 @@ class MypageController extends Controller
                     }
 
                     $stmt = $this->db_manager->get('User')->update($name, $email, $sex_type, $age_type, $user['id'], $result['upload_file_name']);
+
                     $this->_logger->info($this->getPreparedStmtAfterBind($stmt));
 
                     if (! empty($user['icon_image_file'])) {
