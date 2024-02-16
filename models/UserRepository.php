@@ -86,7 +86,7 @@ class UserRepository extends DbRepository
                     id = :id
                 ";
 
-             $stmt = $this->execute($sql, array(
+             return $stmt = $this->execute($sql, array(
                         ':name' => $name,
                         ':email' => $email,
                         ':sex_type' => $sex_type,
